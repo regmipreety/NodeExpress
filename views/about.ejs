@@ -1,22 +1,10 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, intial-scale=1.0">
-    <title>Node JS</title>
-</head>    
+    <%- include('../partials/header.ejs') %>      
 <body>
-    <nav>
-        <div class = "site-title">
-            <a href="/"><h1>Node Tutorial</h1></a>    
-        </div> 
-        <ul>
-            <li><a href="/">Blog</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blogs/create">New blog</a></li>
-        </ul>   
-    </nav>
+   <%- include('../partials/nav.ejs') %>
     <div class="about content">
         <h2>About us</h2>
     </div>
 </body>
+<%- include('../partials/footer.ejs') %>   
 </html>

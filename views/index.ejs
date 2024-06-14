@@ -1,22 +1,21 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, intial-scale=1.0">
-    <title>Node JS</title>
-</head>    
+<%- include('../partials/header.ejs') %>   
 <body>
-    <nav>
-        <div class = "site-title">
-            <a href="/"><h1>Node Tutorial</h1></a>    
-        </div> 
-        <ul>
-            <li><a href="/">Blog</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blogs/create">New blog</a></li>
-        </ul>   
-    </nav>
-    <div class="blogs content">
-        <h2>All Blogs</h2>
+    <div class = "container-fluid">
+    <%- include('../partials/nav.ejs') %>
+     <div class="container">
+            <h2>All Blogs</h2>
+
+            <% if(blogs.length > 0) { %>
+            <% blogs.forEach(blog => { %>
+                    <h3 class= "title"> <%= blog.title %></h3>
+                    <p class="snippet"><%= blog.snippet %></p>
+            <% }) %>
+            <% } else { %>
+            <p>There are no blogs.</p> 
+        <% } %> 
+        </div>
     </div>
 </body>
+<%- include('../partials/footer.ejs') %>   
 </html>
