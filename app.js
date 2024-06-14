@@ -3,11 +3,18 @@ const express = require('express')
 //express app
 const app = express()
 
+//morgan
+const morgan = require('morgan')
+
 //register view engine
 app.set('view engine', 'ejs')
 
 //listen for requests 
 app.listen(3000);
+
+//middleware and static files
+app.use(express.static('public'))
+app.use(morgan('dev'));
 
 //adding bootstrap
 app.use(
@@ -31,6 +38,11 @@ app.get('/about', (req,res)=> {
    // res.sendFile('./views/about.html', {root: __dirname});
    res.render('about', {title: 'About'})
 })
+
+app.get('/blogs/create', (req,res)=> {
+    // res.sendFile('./views/about.html', {root: __dirname});
+    res.render('create', {title: 'New Blog'})
+ })
 
 //redirects
 app.get('/about-us', (req, res)=>{
