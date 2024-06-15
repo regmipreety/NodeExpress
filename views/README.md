@@ -13,3 +13,5 @@ Morgan
 * HTTP request logger middleware for node.js
 * morgan(format, options)
 Create a new morgan logger middleware function using the given format and options. 
+
+*Asynchronous JavaScript is the programming method where operations are run independently allowing the program to continue running while waiting for certain tasks to complete. Synchronous JavaScript is the programming approach where tasks of a program are executed sequentially one at a time

@@ -3,14 +3,20 @@ const express = require('express')
 //express app
 const app = express()
 
+//connect mongoDB
+const mongoose = require('mongoose')
+const uri = "mongodb+srv://admin:test1234@cluster0.55lwxst.mongodb.net/node-tutorial?retryWrites=true&w=majority";
+mongoose.connect(uri)
+    .then((result)=> app.listen(3000))
+    .catch((err)=> console.log(err))
+
+const Blog = require('./models/blog')
+
 //morgan
 const morgan = require('morgan')
 
 //register view engine
 app.set('view engine', 'ejs')
-
-//listen for requests 
-app.listen(3000);
 
 //middleware and static files
 app.use(express.static('public'))
@@ -42,6 +48,21 @@ app.get('/about', (req,res)=> {
 app.get('/blogs/create', (req,res)=> {
     // res.sendFile('./views/about.html', {root: __dirname});
     res.render('create', {title: 'New Blog'})
+ })
+
+ app.get('/add-blog', (req,res)=>{
+    const blog = new Blog ({
+        title: ' new Blog',
+        snippet: ' about my new blog',
+        body: 'save new blog'
+    })
+    blog.save()
+    .then((result) => {
+        res.send(result)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
  })
 
 //redirects
