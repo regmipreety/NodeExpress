@@ -52,12 +52,34 @@ app.get('/blogs/create', (req,res)=> {
 
  app.get('/add-blog', (req,res)=>{
     const blog = new Blog ({
-        title: ' new Blog',
+        title: ' second Blog',
         snippet: ' about my new blog',
         body: 'save new blog'
     })
     blog.save()
     .then((result) => {
+        res.send(result)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+ })
+
+ //Get all blogs
+ app.get('/all-blogs', (req,res)=>{
+    Blog.find().sort({createdAt: - 1})
+    .then((result)=>{
+        res.render('index', {blogs: result, title: 'All Blogs'})
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+ })
+
+ //Get single blog
+ app.get('/blog', (req,res)=>{
+    Blog.findById('666dd208bc6b527430bad51d')
+    .then((result)=>{
         res.send(result)
     })
     .catch((err)=>{
