@@ -27,4 +27,10 @@ age(number)
 bio(string), required
 * Models allow us to communicate with database collections
 
+Request Types
+1. GET requests to get a resource
+2. POST requests to create a new data
+3. DELETE requests to delete data
+4. PUT requests to update data
+
 * Asynchronous JavaScript is the programming method where operations are run independently allowing the program to continue running while waiting for certain tasks to complete. Synchronous JavaScript is the programming approach where tasks of a program are executed sequentially one at a time

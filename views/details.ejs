@@ -1,0 +1,16 @@
+<html lang="en">
+<%- include('../partials/header.ejs') %>   
+<body>
+    <div class = "container-fluid">
+    <%- include('../partials/nav.ejs') %>
+     <div class="container">
+            <h2>Blog Details</h2>
+                    <h3><%= blogs.title %></h3>
+                    <p class="snippet"><%= blogs.snippet %></p>
+                    <p><%= blogs.body %></p>
+                    </a>
+        </div>
+    </div>
+</body>
+<%- include('../partials/footer.ejs') %>   
+</html>
