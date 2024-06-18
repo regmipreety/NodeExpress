@@ -2,7 +2,7 @@ const express = require('express')
 
 const router = express.Router();
 
-router.get('/blogs/create', (req,res)=> {
+router.get('/create', (req,res)=> {
     // res.sendFile('./views/about.html', {root: __dirname});
     res.render('create', {title: 'New Blog'})
  })
@@ -25,7 +25,7 @@ const Blog = require('../models/blog')
  })
 
  //Get all blogs
- router.get('/all-blogs', (req,res)=>{
+ router.get('/', (req,res)=>{
     Blog.find().sort({createdAt: - 1})
     .then((result)=>{
         res.render('index', {blogs: result, title: 'All Blogs'})
@@ -46,18 +46,18 @@ const Blog = require('../models/blog')
     })
  })
 
- router.post('/blogs', (req,res)=>{
+ router.post('/', (req,res)=>{
    const blog = new Blog(req.body)
    blog.save()
     .then((result)=>{
-        res.redirect('/all-blogs')
+        res.redirect('/blogs')
     })
     .catch((err)=>{
         console.log(err)
     })
  })
 
- router.get('/blogs/:id', (req,res)=>{
+ router.get('/:id', (req,res)=>{
     const id = req.params.id
     Blog.findById(id)
         .then((result)=>{
@@ -68,11 +68,11 @@ const Blog = require('../models/blog')
         })
  })
 
- router.delete('/blogs/:id', (req,res)=>{
+ router.delete('/:id', (req,res)=>{
     const id = req.params.id
     Blog.findByIdAndDelete(id)
         .then(result=>{
-            res.json({redirect: '/all-blogs'})
+            res.json({redirect: '/blogs'})
         })
         .catch((err)=>{
             console.log(err)
