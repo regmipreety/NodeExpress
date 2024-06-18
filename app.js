@@ -10,7 +10,7 @@ mongoose.connect(uri)
     .then((result)=> app.listen(3000))
     .catch((err)=> console.log(err))
 
-const Blog = require('./models/blog')
+const blogRoutes = require('./routes/blogRoutes')
 
 //morgan
 const morgan = require('morgan')
@@ -45,86 +45,13 @@ app.get('/about', (req,res)=> {
    // res.sendFile('./views/about.html', {root: __dirname});
    res.render('about', {title: 'About'})
 })
-
-app.get('/blogs/create', (req,res)=> {
-    // res.sendFile('./views/about.html', {root: __dirname});
-    res.render('create', {title: 'New Blog'})
- })
-
- app.get('/add-blog', (req,res)=>{
-    const blog = new Blog ({
-        title: ' second Blog',
-        snippet: ' about my new blog',
-        body: 'save new blog'
-    })
-    blog.save()
-    .then((result) => {
-        res.send(result)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
- })
-
- //Get all blogs
- app.get('/all-blogs', (req,res)=>{
-    Blog.find().sort({createdAt: - 1})
-    .then((result)=>{
-        res.render('index', {blogs: result, title: 'All Blogs'})
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
- })
-
- //Get single blog
- app.get('/blog', (req,res)=>{
-    Blog.findById('666dd208bc6b527430bad51d')
-    .then((result)=>{
-        res.send(result)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
- })
-
- app.post('/blogs', (req,res)=>{
-   const blog = new Blog(req.body)
-   blog.save()
-    .then((result)=>{
-        res.redirect('/all-blogs')
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
- })
-
- app.get('/blogs/:id', (req,res)=>{
-    const id = req.params.id
-    Blog.findById(id)
-        .then((result)=>{
-            res.render('details', {blogs: result, title: 'Blog details'})
-        })
-        .catch((err) =>{
-            console.log(err)
-        })
- })
-
- app.delete('/blogs/:id', (req,res)=>{
-    const id = req.params.id
-    Blog.findByIdAndDelete(id)
-        .then(result=>{
-            res.json({redirect: '/all-blogs'})
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-})
-
 //redirects
 app.get('/about-us', (req, res)=>{
     res.redirect('/about');
 })
+
+//blog routes
+app.use(blogRoutes)
 
 //404
 app.use((req,res)=>{
