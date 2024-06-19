@@ -2,81 +2,17 @@ const express = require('express')
 
 const router = express.Router();
 
-router.get('/create', (req,res)=> {
-    // res.sendFile('./views/about.html', {root: __dirname});
-    res.render('create', {title: 'New Blog'})
- })
+const blogController = require('../controllers/blogController')
 
-const Blog = require('../models/blog')
-
- router.get('/add-blog', (req,res)=>{
-    const blog = new Blog ({
-        title: ' second Blog',
-        snippet: ' about my new blog',
-        body: 'save new blog'
-    })
-    blog.save()
-    .then((result) => {
-        res.send(result)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
- })
+router.get('/create', blogController.blog_create_get)
 
  //Get all blogs
- router.get('/', (req,res)=>{
-    Blog.find().sort({createdAt: - 1})
-    .then((result)=>{
-        res.render('index', {blogs: result, title: 'All Blogs'})
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
- })
+ router.get('/', blogController.blog_index)
 
- //Get single blog
- router.get('/blog', (req,res)=>{
-    Blog.findById('666dd208bc6b527430bad51d')
-    .then((result)=>{
-        res.send(result)
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
- })
+ router.post('/', blogController.blog_create_post)
 
- router.post('/', (req,res)=>{
-   const blog = new Blog(req.body)
-   blog.save()
-    .then((result)=>{
-        res.redirect('/blogs')
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
- })
+ router.get('/:id', blogController.blog_details)
 
- router.get('/:id', (req,res)=>{
-    const id = req.params.id
-    Blog.findById(id)
-        .then((result)=>{
-            res.render('details', {blogs: result, title: 'Blog details'})
-        })
-        .catch((err) =>{
-            console.log(err)
-        })
- })
-
- router.delete('/:id', (req,res)=>{
-    const id = req.params.id
-    Blog.findByIdAndDelete(id)
-        .then(result=>{
-            res.json({redirect: '/blogs'})
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
-})
+ router.delete('/:id', blogController.blog_delete)
 
 module.exports = router
