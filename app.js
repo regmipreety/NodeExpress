@@ -37,7 +37,7 @@ app.get('/', (req,res)=> {
     {title: 'Trump Ipsum', snippet: 'If you havent seen Game of Thrones, go watch it right now'},
 
    ];
-   res.render('index', {title : 'Home', blogs})
+   res.render('blogs/index', {title : 'Home', blogs})
    //express will look inside the views folder 
 })
 
