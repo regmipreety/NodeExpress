@@ -24,3 +24,8 @@ example: User schema has following properties
     - age(number)
     - bio(string), required
 * Models allow us to communicate with database collections
+Authentication with JWT
+Express middlewares:
+* express.json() is a method inbuilt in express to recognize the incoming Request Object as a JSON Object. This method is called as a middleware in your application using the code: app.use(express.json())
+* express.urlencoded() is a method inbuilt in express to recognize the incoming Request Object as strings or arrays. This method is called as a middleware in your application using the code: app.use(express.urlencoded());
+* JSON Web Tokens are one way to implement authentication

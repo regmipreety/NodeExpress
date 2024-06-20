@@ -11,6 +11,7 @@ mongoose.connect(uri)
     .catch((err)=> console.log(err))
 
 const blogRoutes = require('./routes/blogRoutes')
+const authRoutes = require('./routes/authRoutes')
 
 //morgan
 const morgan = require('morgan')
@@ -21,6 +22,7 @@ app.set('view engine', 'ejs')
 //middleware and static files
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
+//app.use(express.json())
 app.use(morgan('dev'));
 
 //adding bootstrap
@@ -29,16 +31,7 @@ app.use(
   );
 
 app.get('/', (req,res)=> {
-    //res.send('<p> home page </p')
-   // res.sendFile('./views/index.html', { root: __dirname });
-   const blogs = [
-    {title: 'Lorem ipsum', snippet: 'The classic latin passage that just never gets old, enjoy as much'},
-    {title: 'Hodor Ipsum', snippet: 'If you havent seen Game of Thrones, go watch it right now'},
-    {title: 'Trump Ipsum', snippet: 'If you havent seen Game of Thrones, go watch it right now'},
-
-   ];
-   res.render('blogs/index', {title : 'Home', blogs})
-   //express will look inside the views folder 
+   res.render('home', {title: 'Welcome'})
 })
 
 app.get('/about', (req,res)=> {
@@ -52,6 +45,7 @@ app.get('/about-us', (req, res)=>{
 
 //blog routes
 app.use('/blogs',blogRoutes)
+app.use(authRoutes)
 
 //404
 app.use((req,res)=>{
