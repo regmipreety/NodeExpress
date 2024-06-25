@@ -3,18 +3,28 @@
 <body>
    <%- include('../partials/nav.ejs') %>
     <div class="container">
-        <form action="/signup" method="POST">
-            <div class="mb-3 mt-3">
+      <h2 class="m-3">Sign up</h2>
+        <form>
+            <div class="mb-3 col-sm-4">
               <label for="email" class="form-label">Email:</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+              <input type="email" class="form-control" placeholder="Enter email" name="email">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-sm-4">
               <label for="pwd" class="form-label">Password:</label>
-              <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+              <input type="password" class="form-control" placeholder="Enter password" name="password">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
     </div>
+    <script>
+      const form = document.querySelector('form')
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const email = form.email.value
+        const password = form.password.value
+        console.log(email,password)
+      })     
+    </script>
 </body>
 <%- include('../partials/footer.ejs') %>   
 </html>

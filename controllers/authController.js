@@ -4,8 +4,8 @@ const User = require('../models/user')
 const handleErrors = (err) => {
     let errors = { email:'', password:''}
 
-    ig(err.code === 11000){
-        error.email = 'Email is already registered'
+    if(err.code === 11000) {
+        errors.email = 'Email is already registered'
         return errors 
     }
     //validation errors
