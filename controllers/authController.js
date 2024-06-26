@@ -25,15 +25,12 @@ const signup_post = async (req, res)=> {
     const { email, password } = req.body;
    // const user = new User(req.body)
 
-    if (!email || !password) {
-        return res.status(400).send("Email and password are required");
-    }
     try {
           // Create a new User instance with Mongoose
-        const user = new User({ email , password });
+        const user = await User.create({ email , password });
     
         // Save the user to the database
-       const data = await user.save()
+      // const data = await user.save()
         res.status(201).render('home', {title:"Welcome"})
             
     } 
