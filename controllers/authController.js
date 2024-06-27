@@ -10,6 +10,16 @@ const handleErrors = (err) => {
         errors.email = 'Email is already registered'
         return errors 
     }
+    //incorrect email
+    if(err.message === 'incorrect email'){
+        errors.email = "That email is not registered"
+    }
+     //incorrect password
+     if(err.message === 'incorrect password'){
+        errors.password = "Please enter correct password"
+    }
+
+
     //validation errors
     if(err.message.includes('User validation failed')){
         Object.values(err.errors).forEach(properties => {
@@ -55,17 +65,16 @@ const login_get = (req, res)=>{
 }
 const login_post = async (req, res)=>{
     const { email, password } = req.body;
-    // const user = new User(req.body)
- 
-     if (!email || !password) {
-         return res.status(400).send("Email and password are required");
-     }
+
      try {
-           const logged = await User.find({email: email, password:password})
-           res.status(201).render('home', {title:"Welcome", users:logged})         
+           const user = await User.login(email, password)
+           const token = createToken(user._id)
+           res.cookie('jwt', token, { htppOnly: true, maxAge: maxAge * 1000})
+           res.status(200).json({user: user._id})      
      } 
      catch (err){
-         res.status(400).send("Incorrect email/password");
+        const errors = handleErrors( err)
+         res.status(400).json({errors})
      }
 }
 
