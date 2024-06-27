@@ -3,15 +3,15 @@ const jwt = require('jsonwebtoken')
 
 //handle errors
 const handleErrors = (err) => {
+    console.log(err.message, err.code)
     let errors = { email:'', password:''}
 
     if(err.code === 11000) {
         errors.email = 'Email is already registered'
         return errors 
     }
-    console.log(err)
     //validation errors
-    if(err._message.includes('User validation failed')){
+    if(err.message.includes('User validation failed')){
         Object.values(err.errors).forEach(properties => {
             errors[properties.path] = properties.message
         })
@@ -46,7 +46,7 @@ const signup_post = async (req, res)=> {
     } 
     catch (err){
         const errors = handleErrors(err)
-        res.status(400).json(errors);
+        res.status(400).json({errors});
     }
 }
 
