@@ -1,0 +1,36 @@
+<html lang="en">
+<%- include('../partials/header.ejs') %>   
+<body>
+    <div class = "container-fluid">
+    <%- include('../partials/nav.ejs') %>
+     <div class="container">
+            <h2>Blog Details</h2>
+                    <h3><%= blogs.title %></h3>
+                    <p class="snippet"><%= blogs.snippet %></p>
+                    <p><%= blogs.body %></p>
+                    </a>
+
+                <div>
+                    <a class="trashcan btn btn-danger" data-blogid="<%= blogs._id%>"> delete </a>    
+                </div>
+        </div>
+    </div>
+<%- include('../partials/footer.ejs') %>  
+</body>
+<script>
+    const trashcan = document.querySelector('a.trashcan')
+    console.log(trashcan.dataset.blogid);
+
+    trashcan.addEventListener('click', (e)=>{
+        const route = `/blogs/${trashcan.dataset.blogid}`
+        fetch(route, {
+            method: 'DELETE'
+        })
+        .then((response)=> response.json())
+        .then((data)=>{
+            window.location.href = data.redirect
+        })
+        .catch((err)=> console.log(err))
+    })
+</script> 
+</html>
