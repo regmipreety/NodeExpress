@@ -4,15 +4,17 @@ const router = express.Router();
 
 const blogController = require('../controllers/blogController')
 
-router.get('/create', blogController.blog_create_get)
+const  {requireAuth } = require('../middleware/authMiddleware')
+
+router.get('/create', requireAuth, blogController.blog_create_get)
 
  //Get all blogs
- router.get('/', blogController.blog_index)
+ router.get('/', requireAuth, blogController.blog_index)
 
- router.post('/', blogController.blog_create_post)
+ router.post('/', requireAuth, blogController.blog_create_post)
 
- router.get('/:id', blogController.blog_details)
+ router.get('/:id', requireAuth, blogController.blog_details)
 
- router.delete('/:id', blogController.blog_delete)
+ router.delete('/:id', requireAuth, blogController.blog_delete)
 
 module.exports = router
