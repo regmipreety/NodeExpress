@@ -15,7 +15,8 @@ const authRoutes = require('./routes/authRoutes')
 const cookieParser = require('cookie-parser')
 
 //morgan
-const morgan = require('morgan')
+const morgan = require('morgan');
+const { checkUser } = require('./middleware/authMiddleware');
 
 //register view engine
 app.set('view engine', 'ejs')
@@ -32,6 +33,8 @@ app.use(
     "/",express.static("./node_modules/bootstrap/dist")
   );
 
+//all routes
+app.get('*', checkUser)
 app.get('/', (req,res)=> {
    res.render('home', {title: 'Welcome'})
 })
