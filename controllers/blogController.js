@@ -10,6 +10,7 @@ const blog_index = (req,res) => {
     })
 }
 const blog_create_post = (req,res) =>{
+    const { title, snippet, body } = req.body;
     const blog = new Blog(req.body)
    blog.save()
     .then((result)=>{
