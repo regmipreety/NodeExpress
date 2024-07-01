@@ -1,0 +1,33 @@
+<html lang="en">
+    <%- include('../partials/header.ejs') %>      
+<body>
+   <%- include('../partials/nav.ejs') %>
+   <div class="container">
+    <h2 class="mb-4">Add New Employee</h2>
+    <form action="/employee" method="POST">
+      <input
+        type="text"
+        name="name"
+        class="form-control my-3"
+        placeholder="Employee Name"
+      />
+      <input
+        type="text"
+        name="designation"
+        class="form-control my-3"
+        placeholder="Employee Designation"
+      />
+      <input
+        type="text"
+        name="salary"
+        class="form-control my-3"
+        placeholder="Employee Salary"
+      />
+      <button type="submit" class="btn btn-danger btn-block mt-3">
+        Add to Database
+      </button>
+    </form>
+  </div>
+</body>
+<%- include('../partials/footer.ejs') %>   
+</html>

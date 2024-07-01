@@ -2,16 +2,21 @@ const express = require('express')
 
 //express app
 const app = express()
+const path = require('path')
+const dotenv = require('dotenv')
+
+dotenv.config({path: './config.env'})
 
 //connect mongoDB
 const mongoose = require('mongoose')
-const uri = "mongodb+srv://admin:test1234@cluster0.55lwxst.mongodb.net/node-tutorial?retryWrites=true&w=majority";
+const uri = process.env.DATABASE_URI
 mongoose.connect(uri)
     .then((result)=> app.listen(3000))
     .catch((err)=> console.log(err))
 
 const blogRoutes = require('./routes/blogRoutes')
 const authRoutes = require('./routes/authRoutes')
+const employeeRoutes = require('./routes/employeeRoutes')
 const cookieParser = require('cookie-parser')
 
 //morgan
@@ -50,6 +55,7 @@ app.get('/about-us', (req, res)=>{
 
 //blog routes
 app.use('/blogs',blogRoutes)
+app.use('/employees', employeeRoutes)
 app.use(authRoutes)
 
 // get-set cookie
