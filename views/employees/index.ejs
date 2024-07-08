@@ -5,6 +5,7 @@
     <%- include('../partials/nav.ejs') %>
     <div class="container">
         <div id="table1">
+          <% if(employees.length > 0) { %>
           <table
             class="table table-bordered"
             id="dataTable"
@@ -19,19 +20,12 @@
                 <th>Operations</th>
               </tr>
             </thead>
-            <tfoot>
-              <tr>
-                <th>Name</th>
-                <th>Designation</th>
-                <th>Salary</th>
-                <th>Operations</th>
-              </tr>
-            </tfoot>
             <tbody>
               <tr>
-                <td>John Doe</td>
-                <td>Manager</td>
-                <td>$12000</td>
+                  <% employees.forEach(employee => { %>
+                <td><%= employee.name %></td>
+                <td><%= employee.designation %></td>
+                <td><%= employee.salary%></td>
                 <td>
                   <a class="btn btn-primary" href="/edit/employee.id">Edit</a>
                   <form
@@ -50,8 +44,13 @@
                   </form>
                 </td>
               </tr>
+              <% }) %>
+              
             </tbody>
           </table>
+          <% } else {%>
+            <center><h3>There are no employees registered</h3></center>
+          <% }%>
         </div>
       </div>
     </div>

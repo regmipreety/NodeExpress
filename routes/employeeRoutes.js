@@ -10,5 +10,7 @@ router.get('/', requireAuth, employeeController.employee_index)
 
 router.get('/create', requireAuth, employeeController.employee_get)
 
+router.post('/', requireAuth, employeeController.employee_post)
+
 
 module.exports = router
