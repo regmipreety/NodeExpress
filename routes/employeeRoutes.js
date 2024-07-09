@@ -16,5 +16,11 @@ router.get('/search', requireAuth, employeeController.employee_search)
 
 router.get('/findEmployee', requireAuth, employeeController.employee_search_result)
 
+router.get('/edit/:id', requireAuth, employeeController.employee_edit)
+
+router.put('/edit/:id', requireAuth, employeeController.employee_update)
+
+router.delete('/delete/:id', requireAuth, employeeController.employee_delete)
+
 
 module.exports = router

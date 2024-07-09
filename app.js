@@ -13,7 +13,7 @@ const uri = process.env.DATABASE_URI
 mongoose.connect(uri)
     .then((result)=> app.listen(3000))
     .catch((err)=> console.log(err))
-
+const methodOverride = require('method-override')
 const blogRoutes = require('./routes/blogRoutes')
 const authRoutes = require('./routes/authRoutes')
 const employeeRoutes = require('./routes/employeeRoutes')
@@ -32,6 +32,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(morgan('dev'));
 app.use(cookieParser());
+app.use(methodOverride('_method'))
 
 //adding bootstrap
 app.use(

@@ -1,0 +1,37 @@
+<html lang="en">
+<%- include('../partials/header.ejs') %>
+<body>
+<%- include('../partials/nav.ejs') %>
+<div class="container mt-5 w-50">
+    <h2 class="mb-4">Update Employee Data</h2>
+    <form action="/employees/edit/<%= employee.id %>?_method=PUT" method="POST">
+      <input type="hidden" name="_method" value="PUT">  
+      <input
+        type="text"
+        value="<%= employee.name %>"
+        name="name"
+        class="form-control my-3"
+        placeholder="Employee Name"
+      />
+      <input
+        type="text"
+        value="<%= employee.designation %>"
+        name="designation"
+        class="form-control my-3"
+        placeholder="Employee Designation"
+      />
+      <input
+        type="text"
+        value="<%= employee.salary %>"
+        name="salary"
+        class="form-control my-3"
+        placeholder="Employee Salary"
+      />
+      <button type="submit" class="btn btn-danger btn-block mt-3">
+        Update Employee
+      </button>
+    </form>
+  </div>
+<%- include('../partials/footer.ejs') %>
+</body>
+</html>
