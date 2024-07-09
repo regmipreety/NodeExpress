@@ -12,5 +12,9 @@ router.get('/create', requireAuth, employeeController.employee_get)
 
 router.post('/', requireAuth, employeeController.employee_post)
 
+router.get('/search', requireAuth, employeeController.employee_search)
+
+router.get('/findEmployee', requireAuth, employeeController.employee_search_result)
+
 
 module.exports = router

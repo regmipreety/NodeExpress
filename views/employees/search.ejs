@@ -1,0 +1,49 @@
+<html lang="en">
+  <%- include('../partials/header.ejs') %>
+  <body>
+    <%- include('../partials/nav.ejs') %>
+    <div class="container">
+      <h2 class="mb-4">Search Employee</h2>
+      <form action="/employees/findEmployee" method="GET">
+        <input
+          type="text"
+          name="name"
+          class="form-control"
+          placeholder="Employee Name"
+        />
+        <button type="submit" class="btn btn-danger btn-block mt-3">
+          Search in Database
+        </button>
+      </form>
+      <% if (employee !== null) { 
+            if(employee !== '') { %>
+        <div>
+          <h4 class="text-danger my-4">Search Results:</h4>
+          <table class="table table-bordered" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Salary</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% employee.forEach(e => { %>
+              <tr>
+                <td><%= e.name %></td>
+                <td><%= e.designation %></td>
+                <td>$ <%= e.salary %></td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+        <% } %>
+      <% } else {%>
+      <div class = "email-error text-danger"> Employee not found</div>
+    <% } %>
+    </div>
+    <%- include('../partials/footer.ejs') %>
+    
+  </body>
+</html>
