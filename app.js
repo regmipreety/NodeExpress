@@ -4,7 +4,6 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const dotenv = require('dotenv')
-const multer = require('multer')
 
 dotenv.config({path: './config.env'})
 
@@ -18,6 +17,7 @@ const methodOverride = require('method-override')
 const blogRoutes = require('./routes/blogRoutes')
 const authRoutes = require('./routes/authRoutes')
 const employeeRoutes = require('./routes/employeeRoutes')
+const galleryRoutes = require('./routes/galleryRoutes')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -70,9 +70,10 @@ app.get('/about-us', (req, res)=>{
     res.redirect('/about');
 })
 
-//blog routes
+//All routes
 app.use('/blogs',blogRoutes)
 app.use('/employees', employeeRoutes)
+app.use('/gallery', galleryRoutes)
 app.use(authRoutes)
 
 // get-set cookie
