@@ -2,17 +2,24 @@ const express = require('express')
 
 //express app
 const app = express()
+const path = require('path')
+const dotenv = require('dotenv')
+
+dotenv.config({path: './config.env'})
 
 //connect mongoDB
 const mongoose = require('mongoose')
-const uri = "mongodb+srv://admin:test1234@cluster0.55lwxst.mongodb.net/node-tutorial?retryWrites=true&w=majority";
+const uri = process.env.DATABASE_URI
 mongoose.connect(uri)
     .then((result)=> app.listen(3000))
     .catch((err)=> console.log(err))
-
+const methodOverride = require('method-override')
 const blogRoutes = require('./routes/blogRoutes')
 const authRoutes = require('./routes/authRoutes')
+const employeeRoutes = require('./routes/employeeRoutes')
 const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const flash = require('connect-flash')
 
 //morgan
 const morgan = require('morgan');
@@ -27,6 +34,20 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(morgan('dev'));
 app.use(cookieParser());
+app.use(methodOverride('_method'))
+app.use(session({
+    secret: "nodejs",
+    resave: true,
+    saveUninitialized: true
+}))
+app.use(flash())
+
+//Setting messages variables globally
+app.use((req,res, next)=>{
+    res.locals.success_msg = req.flash(('success_msg'))
+    res.locals.error_msg = req.flash(('error_msg'))
+    next()
+})
 
 //adding bootstrap
 app.use(
@@ -50,6 +71,7 @@ app.get('/about-us', (req, res)=>{
 
 //blog routes
 app.use('/blogs',blogRoutes)
+app.use('/employees', employeeRoutes)
 app.use(authRoutes)
 
 // get-set cookie

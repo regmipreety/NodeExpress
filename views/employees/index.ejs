@@ -1,0 +1,60 @@
+<html lang="en">
+<%- include('../partials/header.ejs') %>   
+<body>
+    <div class = "container-fluid">
+    <%- include('../partials/nav.ejs') %>
+    <div class="container">
+      <%- include('../partials/messages.ejs') %>
+        <div id="table1">
+          <% if(employees.length > 0) { %>
+          <table
+            class="table table-bordered"
+            id="dataTable"
+            width="100%"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Salary</th>
+                <th>Operations</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                  <% employees.forEach(employee => { %>
+                <td><%= employee.name %></td>
+                <td><%= employee.designation %></td>
+                <td><%= employee.salary%></td>
+                <td>
+                  <a class="btn btn-primary" href="employees/edit/<%= employee.id %>">Edit</a>
+                  <form
+                    style="display: inline"
+                    action="/employees/delete/<%= employee.id %>?_method=DELETE"
+                    method="POST"
+                  >
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <button
+                      style="cursor: pointer"
+                      type="submit"
+                      class="btn btn-danger ml-2"
+                    >
+                      Delete
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+              
+            </tbody>
+          </table>
+          <% } else {%>
+            <center><h3>There are no employees registered</h3></center>
+          <% }%>
+        </div>
+      </div>
+    </div>
+</body>
+<%- include('../partials/footer.ejs') %>   
+</html>

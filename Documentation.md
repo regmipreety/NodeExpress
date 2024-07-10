@@ -13,4 +13,21 @@ JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and s
  JWT contains:
  * Headers- Tells the server what type of signature is being used (meta)
  * Payload- Used to identify the user (eg contains user id)
- * Signature- Makes the token secure 
+ * Signature- Makes the token secure
+
+ Method Overrides for PUT and DELETE requests: Lets you use HTTP verbs such as PUT or DELETE in places where the client doesn't support it.
+ * Implementation: 
+ var express = require('express')
+var methodOverride = require('method-override')
+var app = express()
+ 
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'))
+Example call with query override using HTML <form>:
+
+<form method="POST" action="/resource?_method=DELETE">
+  <button type="submit">Delete resource</button>
+</form>
+
+Connect-flash
+* The flash is a special area of the session used for storing messages. Messages are written to the flash and cleared after being displayed to the user. The flash is typically used in combination with redirects, ensuring that the message is available to the next page that is to be rendered.
