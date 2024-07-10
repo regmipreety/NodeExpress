@@ -30,7 +30,16 @@
               <li><a class="dropdown-item" href="/employees/create">New Employee</a></li>
               <li><a class="dropdown-item" href="/employees/search">Search Employee</a></li>
             </ul>
-          </li>  
+          </li> 
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Gallery
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/gallery">View Gallery</a></li>
+              <li><a class="dropdown-item" href="/gallery/upload">Upload Images</a></li>
+            </ul>
+          </li>   
           <li class="nav-item dropdown">
             <% if (user) { %> 
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
