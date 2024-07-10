@@ -31,3 +31,6 @@ Example call with query override using HTML <form>:
 
 Connect-flash
 * The flash is a special area of the session used for storing messages. Messages are written to the flash and cleared after being displayed to the user. The flash is typically used in combination with redirects, ensuring that the message is available to the next page that is to be rendered.
+
+Multer
+* Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files. 
