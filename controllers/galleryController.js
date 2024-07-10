@@ -38,30 +38,36 @@ const post_single =(req,res,next)=>{
    
 }
 
-const post_multiple = (req, res, next)=>{
-    const files = req.files
-    if(!files){
-        req.flash('error_msg', 'Please select an Image.')
+const post_multiple = async (req, res, next) => {
+    try {
+        const files = req.files;
+        if (!files) {
+            req.flash('error_msg', 'Please select an Image.');
+            return res.redirect('/gallery');
+        }
+
+        for (const file of files) {
+            let url = file.path.replace('public', '');
+            const img = await Gallery.findOne({ imgUrl: url });
+
+            if (img) {
+                console.log('Duplicate image');
+                req.flash('error_msg', 'Duplicate images cannot be uploaded.');
+                return res.redirect('/gallery');
+            }
+
+            await Gallery.create({ imgUrl: url });
+        }
+
+        req.flash('success_msg', 'Images uploaded successfully.');
+        return res.redirect('/gallery');
+    } catch (err) {
+        console.error(err);
+        req.flash('error_msg', 'An error occurred while uploading images.');
+        return res.redirect('/gallery');
     }
+};
 
-    files.forEach(file=>{
-        let url = file.path.replace('public', '')
-        Gallery.findOne({ imgUrl: url})
-            .then(async img => {
-                if(img){
-                    req.flash('error_msg', 'Please use a different Filename.')
-                return res.redirect('/gallery/upload')
-                }
-                await Gallery.create({imgUrl: url})
-            })
-            .catch(err=>{
-                console.log(err)
-            })
-    })
-    req.flash('success_msg',' Images uploaded successfully.')
-
-    res.redirect('/gallery')
-}
 
 const image_delete = (req, res)=>{
     let id = req.params.id
