@@ -18,6 +18,8 @@ const blogRoutes = require('./routes/blogRoutes')
 const authRoutes = require('./routes/authRoutes')
 const employeeRoutes = require('./routes/employeeRoutes')
 const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const flash = require('connect-flash')
 
 //morgan
 const morgan = require('morgan');
@@ -33,6 +35,19 @@ app.use(express.json())
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(methodOverride('_method'))
+app.use(session({
+    secret: "nodejs",
+    resave: true,
+    saveUninitialized: true
+}))
+app.use(flash())
+
+//Setting messages variables globally
+app.use((req,res, next)=>{
+    res.locals.success_msg = req.flash(('success_msg'))
+    res.locals.error_msg = req.flash(('error_msg'))
+    next()
+})
 
 //adding bootstrap
 app.use(

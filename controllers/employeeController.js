@@ -19,9 +19,11 @@ const employee_post = (req, res)=>{
     const employee = new Employee(req.body)
     employee.save()
     .then((result)=>{
+        req.flash('success_msg', 'Employee added successfully.')
         res.redirect('/employees')
     })
     .catch((err)=>{
+        req.flash('error_msg', 'Employee could not be added.')
         console.log(err)
     })
 }
@@ -63,10 +65,11 @@ const employee_update = (req, res) => {
         salary: req.body.salary
     }})
     .then(employee => {
-        console.log(employee)
+        req.flash('success_msg', 'Employee updated successfully.')
         res.redirect('/employees')
     })
     .catch(err => {
+        req.flash('error_msg', 'Employee could not be updated.')
         console.log(err)
     })
 }
@@ -76,9 +79,11 @@ const employee_delete = (req, res) =>{
     console.log(delete_id)
     Employee.deleteOne({_id: delete_id})
         .then(employee=>{
+            req.flash('success_msg', 'Employee deleted successfully.')
             res.redirect('/employees')
         })
         .catch(err => {
+            req.flash('error_msg', 'Employee could not be updated.')
             console.log(err)
         })
 }
