@@ -33,10 +33,10 @@ const employee_search = (req, res)=> {
 }
 
 const employee_search_result = (req, res)=> {
-    let searchTerm = req.query.name
+    let searchTerm = {name: req.query.name }
     // Constructing the query with case-insensitive regex
-    const query = { name: { $regex: new RegExp(searchTerm, 'i') } };
-    Employee.find(query)
+   // const query = { name: { $regex: new RegExp(searchTerm, 'i') } };
+    Employee.findOne(searchTerm)
         .then((employee) => {
                 res.render('employees/search', {title: 'Employee', employee})            
         })
