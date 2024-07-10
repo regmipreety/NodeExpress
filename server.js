@@ -2,6 +2,10 @@ const http = require('http');
 const fs = require('fs');
 
 const _ = require('lodash');
+const path = require('path')
+const dotenv = require('dotenv')
+
+dotenv.config({ path:'./config.env'})
 
 const server = http.createServer((req,res)=>{
     //lodash
@@ -36,8 +40,8 @@ fs.readFile(path, (err, data)=>{
     }
 })
 })
-
-server.listen(3000, 'localhost', ()=>{
+const port = process.env.PORT
+server.listen(port, 'localhost', ()=>{
     console.log('listening to server')
 })
 
