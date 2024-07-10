@@ -41,4 +41,6 @@ router.post('/uploadSingle', upload.single('singleImage'), galleryController.pos
 
 router.post('/uploadmultiple', upload.array('multipleImages'), galleryController.post_multiple)
 
+router.delete('/delete/:id', galleryController.image_delete)
+
 module.exports = router

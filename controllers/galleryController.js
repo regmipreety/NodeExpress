@@ -1,5 +1,6 @@
 const Gallery = require('../models/gallery')
 const path = require('path')
+const fs = require('fs')
 
 const gallery_index = (req, res) =>{
     Gallery.find({})
@@ -29,7 +30,7 @@ const post_single =(req,res,next)=>{
             Gallery.create({imgUrl : url})
                 .then(img=>{
                     req.flash('success_msg',' Image uploaded successfully.')
-                    res.redirect('/gallery/index')
+                    res.redirect('/gallery')
                 })
         })
         .catch(err =>{
@@ -69,14 +70,47 @@ const post_multiple = async (req, res, next) => {
 };
 
 
-const image_delete = (req, res)=>{
-    let id = req.params.id
-    Gallery.findByIdAndDelete(id)
-        .then(result =>{
-            req.flash('success_msg', 'Image deleted successfully')
-        })
-}
+const image_delete = async (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+
+    try {
+        // Find the image by ID
+        const result = await Gallery.findById(id);
+        if (!result) {
+            req.flash('error_msg', 'Image not found.');
+            return res.redirect('/gallery');
+        }
+
+        // Construct the file path
+        const filePath = path.join(__dirname, '../public', result.imgUrl);
+        console.log(filePath)
+        // Delete the image file
+        fs.unlink(filePath, async (err) => {
+            if (err) {
+                console.error(err);
+                req.flash('error_msg', 'An error occurred while deleting the image.');
+                return res.redirect('/gallery');
+            }
+
+            // Delete the image record from the database
+            try {
+                await Gallery.deleteOne({ _id: id });
+                req.flash('success_msg', 'Image deleted successfully');
+                return res.redirect('/gallery');
+            } catch (deleteErr) {
+                console.error(deleteErr);
+                req.flash('error_msg', 'An error occurred while deleting the image from the database.');
+                return res.redirect('/gallery');
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        req.flash('error_msg', 'An error occurred.');
+        return res.redirect('/gallery');
+    }
+};
 
 module.exports = {
-    gallery_upload, gallery_index, post_single, post_multiple
+    gallery_upload, gallery_index, post_single, post_multiple, image_delete
 }
