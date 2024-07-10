@@ -39,4 +39,6 @@ router.get('/upload', galleryController.gallery_upload)
 
 router.post('/uploadSingle', upload.single('singleImage'), galleryController.post_single)
 
+router.post('/uploadmultiple', upload.array('multipleImages'), galleryController.post_multiple)
+
 module.exports = router

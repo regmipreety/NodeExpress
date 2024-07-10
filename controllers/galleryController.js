@@ -38,6 +38,39 @@ const post_single =(req,res,next)=>{
    
 }
 
+const post_multiple = (req, res, next)=>{
+    const files = req.files
+    if(!files){
+        req.flash('error_msg', 'Please select an Image.')
+    }
+
+    files.forEach(file=>{
+        let url = file.path.replace('public', '')
+        Gallery.findOne({ imgUrl: url})
+            .then(async img => {
+                if(img){
+                    req.flash('error_msg', 'Please use a different Filename.')
+                return res.redirect('/gallery/upload')
+                }
+                await Gallery.create({imgUrl: url})
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+    })
+    req.flash('success_msg',' Images uploaded successfully.')
+
+    res.redirect('/gallery')
+}
+
+const image_delete = (req, res)=>{
+    let id = req.params.id
+    Gallery.findByIdAndDelete(id)
+        .then(result =>{
+            req.flash('success_msg', 'Image deleted successfully')
+        })
+}
+
 module.exports = {
-    gallery_upload, gallery_index, post_single
+    gallery_upload, gallery_index, post_single, post_multiple
 }
