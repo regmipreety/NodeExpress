@@ -2,4 +2,6 @@
     <div class="alert alert-success"><%= success_msg %></div>
 <% } else if(error_msg && error_msg != ''){ %>
     <div class = "alert alert-danger"><%= error_msg %></div>
+<% } else if(error && error != ''){ %>
+    <div class= "alert alert-danger"><%= error %> </div>
 <% } %>

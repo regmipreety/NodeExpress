@@ -46,6 +46,14 @@ const post_register = (req, res)=>{
 
 }
 
+const post_login = (req, res, next)=>{
+    passport.authenticate('local', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/admin/login',
+        failureFlash: ' Invalid email or password. Please try again! '
+     })(req, res, next)
+}
+
 module.exports = {
-    get_register, get_signin, dashboard, post_register
+    get_register, get_signin, dashboard, post_register, post_login
 }

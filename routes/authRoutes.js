@@ -1,5 +1,7 @@
 const express = require('express')
 
+const passport = require('passport')
+
 const router = express.Router();
 
 const authController = require('../controllers/authController')
@@ -25,5 +27,7 @@ router.get('/dashboard', adminController.dashboard)
  router.post('/admin/register', adminController.post_register)
 
  router.get('/admin/login', adminController.get_signin)
+
+ router.post('/admin/login', adminController.post_login)
 
 module.exports = router
