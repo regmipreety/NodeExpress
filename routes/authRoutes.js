@@ -4,6 +4,8 @@ const router = express.Router();
 
 const authController = require('../controllers/authController')
 
+const adminController = require('../controllers/adminController')
+
  //Get all routes
  router.get('/signup', authController.signup_get)
 
@@ -14,5 +16,14 @@ const authController = require('../controllers/authController')
  router.post('/login', authController.login_post)
 
  router.get('/logout', authController.logout_get)
+
+ //AdminController
+router.get('/dashboard', adminController.dashboard)
+
+ router.get('/admin/register', adminController.get_register)
+
+ router.post('/admin/register', adminController.post_register)
+
+ router.get('/admin/login', adminController.get_signin)
 
 module.exports = router

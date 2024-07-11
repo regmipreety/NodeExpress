@@ -11,13 +11,11 @@ dotenv.config({path: './config.env'})
 const mongoose = require('mongoose')
 const uri = process.env.DATABASE_URI
 mongoose.connect(uri)
-    .then((result)=> app.listen(3000))
+    .then((result)=> app.listen(process.env.PORT))
     .catch((err)=> console.log(err))
+
 const methodOverride = require('method-override')
-const blogRoutes = require('./routes/blogRoutes')
-const authRoutes = require('./routes/authRoutes')
-const employeeRoutes = require('./routes/employeeRoutes')
-const galleryRoutes = require('./routes/galleryRoutes')
+
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -41,7 +39,16 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+
+
+//middleware for flash messages
 app.use(flash())
+
+//routes
+const blogRoutes = require('./routes/blogRoutes')
+const authRoutes = require('./routes/authRoutes')
+const employeeRoutes = require('./routes/employeeRoutes')
+const galleryRoutes = require('./routes/galleryRoutes')
 
 //Setting messages variables globally
 app.use((req,res, next)=>{

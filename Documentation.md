@@ -29,8 +29,11 @@ Example call with query override using HTML <form>:
   <button type="submit">Delete resource</button>
 </form>
 
-Connect-flash
+<h4>Connect-flash</h4>
 * The flash is a special area of the session used for storing messages. Messages are written to the flash and cleared after being displayed to the user. The flash is typically used in combination with redirects, ensuring that the message is available to the next page that is to be rendered.
 
-Multer
+<h4>Multer</h4>
 * Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files. 
+
+<h4>Passport</h4>
+* Passport is middleware for Node.js that makes it easy to implement authentication and authorization. Whether you are building your first login page or are an expert in all things identity, the documentation will help you understand Passport and use it in your applications.
