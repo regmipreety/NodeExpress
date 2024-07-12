@@ -3,8 +3,10 @@ const express = require('express')
 //express app
 const app = express()
 const path = require('path')
-const dotenv = require('dotenv')
 
+const passport = require('passport')
+
+const dotenv = require('dotenv')
 dotenv.config({path: './config.env'})
 
 //connect mongoDB
@@ -39,7 +41,9 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
-
+//middleware for passport
+app.use(passport.initialize())
+app.use(passport.session())
 
 //middleware for flash messages
 app.use(flash())

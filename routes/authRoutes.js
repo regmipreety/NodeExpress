@@ -1,12 +1,12 @@
 const express = require('express')
 
-const passport = require('passport')
-
 const router = express.Router();
 
 const authController = require('../controllers/authController')
 
 const adminController = require('../controllers/adminController')
+
+const {isAuthenticatedUser} = require('../middleware/isAuthenticatedUser')
 
  //Get all routes
  router.get('/signup', authController.signup_get)
@@ -20,7 +20,7 @@ const adminController = require('../controllers/adminController')
  router.get('/logout', authController.logout_get)
 
  //AdminController
-router.get('/dashboard', adminController.dashboard)
+router.get('/dashboard', isAuthenticatedUser, adminController.dashboard)
 
  router.get('/admin/register', adminController.get_register)
 

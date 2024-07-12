@@ -4,10 +4,6 @@ const app = express()
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 
-//middleware for passport
-app.use(passport.initialize())
-app.use(passport.session())
-
 passport.use(new LocalStrategy({usernameField:'email'},Admin.authenticate()))
 passport.serializeUser(Admin.serializeUser())
 passport.deserializeUser(Admin.deserializeUser())
@@ -21,7 +17,7 @@ const get_signin = (req, res)=>{
 }
 
 const dashboard = (req, res) => {
-    res.render('admin/dashboard')
+     res.render('admin/dashboard')
 }
 
 const post_register = (req, res)=>{
@@ -55,5 +51,5 @@ const post_login = (req, res, next)=>{
 }
 
 module.exports = {
-    get_register, get_signin, dashboard, post_register, post_login
+    get_register, get_signin, dashboard , post_register, post_login,
 }
