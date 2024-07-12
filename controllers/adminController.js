@@ -50,6 +50,16 @@ const post_login = (req, res, next)=>{
      })(req, res, next)
 }
 
+const get_logout = (req, res, next) => {
+    req.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+      req.flash('success_msg', 'You have been logged out');
+      res.redirect('/admin/login');
+    });
+  };
+  
 module.exports = {
-    get_register, get_signin, dashboard , post_register, post_login,
+    get_register, get_signin, dashboard , post_register, post_login, get_logout
 }

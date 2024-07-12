@@ -30,4 +30,6 @@ router.get('/dashboard', isAuthenticatedUser, adminController.dashboard)
 
  router.post('/admin/login', adminController.post_login)
 
+ router.get('/admin/logout', adminController.get_logout)
+
 module.exports = router
