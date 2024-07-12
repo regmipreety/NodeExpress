@@ -5,7 +5,8 @@
 <body>
 <%- include('../partials/nav.ejs') %>
 <div class="container w-25">
-    <h2>Welcome to Admin Dashboard</h2>
+    <h2>Welcome <%= currentUser.name %></h2>
+    
     <a href=" /admin/register" class="btn btn-danger btn-block">Register</a>
     <a href=" /admin/login" class="btn btn-danger btn-block">Sign in</a>
     <a href=" /admin/logout" class="btn btn-danger btn-block">Logout</a>
