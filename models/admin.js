@@ -6,7 +6,9 @@ let adminSchema = new mongoose.Schema({
     password: {
         type: String,
         select: false
-    }
+    },
+    resetPasswordToken : String,
+    resetPasswordExpires: Date
 })
 
 adminSchema.plugin(passportLocalMongoose, {usernameField:'email'})

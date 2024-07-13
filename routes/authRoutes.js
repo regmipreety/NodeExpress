@@ -6,7 +6,8 @@ const authController = require('../controllers/authController')
 
 const adminController = require('../controllers/adminController')
 
-const {isAuthenticatedUser} = require('../middleware/isAuthenticatedUser')
+const {isAuthenticatedUser} = require('../middleware/isAuthenticatedUser');
+const admin = require('../models/admin');
 
  //Get all routes
  router.get('/signup', authController.signup_get)
@@ -31,5 +32,9 @@ router.get('/dashboard', isAuthenticatedUser, adminController.dashboard)
  router.post('/admin/login', adminController.post_login)
 
  router.get('/admin/logout', adminController.get_logout)
+
+ router.get('/forgot', adminController.get_forgotpassword)
+
+ router.post('/forgot', adminController.post_forgotpassword)
 
 module.exports = router
