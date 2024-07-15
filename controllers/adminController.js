@@ -135,12 +135,128 @@ const post_forgotpassword = (req, res, next) => {
     });
 };
 
-module.exports = {
-    post_forgotpassword
-};
+const reset_password = (req, res)=>{
+    Admin.findOne({resetPasswordToken: req.params.token, resetPasswordExpires : { $gt: Date.now()}})
+        .then(user=>{
+            if(!user) {
+                req.flash('error_msg', 'Password reset toekn is invalid or expired')
+                res.redirect('/forgot')
+            }
+            res.render('admin/changePassword', {token: req.params.token})
+        })
+        .catch(err=>{
+            req.flash('error_msg', 'ERROR: '+ err)
+            res.redirect('/forgot')
+        })
+}
 
+const post_resetpassword =  async (req, res) =>{
+    // async.waterfall([
+    //     (done)=>{
+    //        const user = await Admin.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}})
+    //             .then(user => {
+    //                 if(!user) {
+    //                     req.flash('error_msg', 'Password reset token is invalid or expired')
+    //                     res.redirect('/forgot')
+    //                 }
+
+    //                 if(req.body.password != req.body.confirmpassword){
+    //                     req.flash('error_msg', 'Passwords do not match')
+    //                     res.redirect('/forgot')
+    //                 }
+
+    //                 user.setPassword(req.body.password, err=>{
+    //                     user.resetPasswordToken = undefined
+    //                     user.resetPasswordExpires = undefined
+                        
+    //                     await user.save()
+
+    //                 })
+    //             })
+
+    //             .catch(err=>{
+    //                 req.flash('error_msg', 'Error:'+ err)
+    //                 res.redirect('/forgot')
+    //             })
+    //         },
+    //         (user) => {
+    //             let smtpTransport = nodemailer.createTransport({
+    //                 service: 'Gmail',
+    //                 auth: {
+    //                     user: process.env.GMAIL_EMAIL,
+    //                     pass: process.env.GMAIL_PASSWORD
+    //                 }
+    //             })
+
+    //             let mailOptions= {
+    //                 to: user.email,
+    //                 from: 'Node Express',
+    //                 subject: 'Your password is changed',
+    //                 text: 'Hello, '+user.name+'\n\n'+
+    //                     'This is the confirmation that the password for your'+user.email+' account is changed successfully.'
+    //             }
+    //             smtpTransport.sendMail(mailOptions, err=>{
+    //                 req.flash('success_msg', 'Your password has been changed successfully.')
+    //                 res.redirect('/login')
+    //             })
+    //         }
+    // ])
+
+    try {
+        const user = await Admin.findOne({
+            resetPasswordToken: req.params.token,
+            resetPasswordExpires: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            req.flash('error_msg', 'Password reset token is invalid or has expired.');
+            return res.redirect('/forgot');
+        }
+
+        if (req.body.password !== req.body.confirmpassword) {
+            req.flash('error_msg', 'Passwords do not match.');
+            return res.redirect('/forgot');
+        }
+
+        user.setPassword(req.body.password, async (err) => {
+            if (err) {
+                req.flash('error_msg', 'Error: ' + err.message);
+                return res.redirect('/forgot');
+            }
+
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+
+            await user.save();
+
+            const smtpTransport = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: process.env.GMAIL_EMAIL,
+                    pass: process.env.GMAIL_PASSWORD
+                }
+            });
+
+            const mailOptions = {
+                to: user.email,
+                from: 'Node Express <noreply@gmail.com>',
+                subject: 'Your password has been changed',
+                text: `Hello, ${user.name}\n\nThis is a confirmation that the password for your account ${user.email} has been successfully changed.`
+            };
+
+            await smtpTransport.sendMail(mailOptions);
+
+            req.flash('success_msg', 'Your password has been changed successfully.');
+            res.redirect('/login');
+        });
+    } catch (err) {
+        req.flash('error_msg', 'Error: ' + err.message);
+        res.redirect('/forgot');
+    }
+}
+    
 
 module.exports = {
     get_register, get_signin, dashboard , post_register, post_login, get_logout,
-    get_forgotpassword, post_forgotpassword
+    get_forgotpassword, post_forgotpassword, reset_password, post_resetpassword
 }

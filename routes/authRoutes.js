@@ -37,4 +37,8 @@ router.get('/dashboard', isAuthenticatedUser, adminController.dashboard)
 
  router.post('/forgot', adminController.post_forgotpassword)
 
+ router.get('/reset/:token', adminController.reset_password)
+
+ router.post('/reset/:token', adminController.post_resetpassword)
+
 module.exports = router
