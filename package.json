@@ -13,6 +13,7 @@
     "async": "^3.2.5",
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
+    "cheerio": "^1.0.0-rc.12",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
@@ -28,6 +29,7 @@
     "nodemailer": "^6.9.14",
     "passport": "^0.7.0",
     "passport-local-mongoose": "^8.0.0",
+    "puppeteer": "^22.13.0",
     "validator": "^13.12.0"
   }
 }

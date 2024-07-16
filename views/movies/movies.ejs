@@ -1,0 +1,35 @@
+<html lang="en">
+    <%- include('../partials/header.ejs') %>
+<body>
+    <%- include('../partials/nav.ejs') %>
+<h1 id="searchHeading">
+    Search Result <span style="color: grey">> </span>YOUR_TITLE_HERE
+  </h1>
+  <div class="card mb-5 w-75">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="YOUR_IMAGE_URL_HERE" class="card-img img-fluid" />
+      </div>
+
+      <div class="col-md-8">
+        <div class="card-body">
+          <h2 class="card-title">
+            <b>YOUR_TITLE_HERE</b> YOUR_RELEASE_DATE_HERE
+          </h2>
+
+          <hr />
+          <h4 class="mb-2">Overview:</h4>
+          <p class="card-text">YOUR_OVERVIEW_HERE</p>
+
+          <hr />
+          <p class="card-text"><b>User Score:</b> YOUR_USER_SCORE_HERE%</p>
+
+          <hr />
+          <h4 class="mb-3">Featured Crew:</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('../partials/footer.ejs') %>
+  </body>
+  </html>

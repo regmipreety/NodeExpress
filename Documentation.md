@@ -37,3 +37,23 @@ Example call with query override using HTML <form>:
 
 <h4>Passport</h4>
 * Passport is middleware for Node.js that makes it easy to implement authentication and authorization. Whether you are building your first login page or are an expert in all things identity, the documentation will help you understand Passport and use it in your applications.
+
+<h4>Puppeteer</h4>
+* Puppeteer is a Node.js library which provides a high-level API to control Chrome or Firefox over the DevTools Protocol or WebDriver BiDi. Puppeteer runs in the headless (no visible UI) by default but can be configured to run in a visible ("headful") browser.
+<h3>Features</h3>
+Most things that you can do manually in the browser can be done using Puppeteer! Here are a few examples to get you started:
+
+Automate form submission, UI testing, keyboard input, etc.
+Create an automated testing environment using the latest JavaScript and browser features.
+Capture a timeline trace of your site to help diagnose performance issues.
+Test Chrome Extensions.
+Generate screenshots and PDFs of pages.
+Crawl a SPA (Single-Page Application) and generate pre-rendered content (i.e. "SSR" (Server-Side Rendering)).
+
+<h4>Cheerio</h4>
+Features
+❤ Familiar syntax: Cheerio implements a subset of core jQuery. Cheerio removes all the DOM inconsistencies and browser cruft from the jQuery library, revealing its truly gorgeous API.
+
+ϟ Blazingly fast: Cheerio works with a very simple, consistent DOM model. As a result parsing, manipulating, and rendering are incredibly efficient.
+
+❁ Incredibly flexible: Cheerio wraps around parse5 parser and can optionally use @FB55's forgiving htmlparser2. Cheerio can parse nearly any HTML or XML document.
