@@ -151,57 +151,6 @@ const reset_password = (req, res)=>{
 }
 
 const post_resetpassword =  async (req, res) =>{
-    // async.waterfall([
-    //     (done)=>{
-    //        const user = await Admin.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}})
-    //             .then(user => {
-    //                 if(!user) {
-    //                     req.flash('error_msg', 'Password reset token is invalid or expired')
-    //                     res.redirect('/forgot')
-    //                 }
-
-    //                 if(req.body.password != req.body.confirmpassword){
-    //                     req.flash('error_msg', 'Passwords do not match')
-    //                     res.redirect('/forgot')
-    //                 }
-
-    //                 user.setPassword(req.body.password, err=>{
-    //                     user.resetPasswordToken = undefined
-    //                     user.resetPasswordExpires = undefined
-                        
-    //                     await user.save()
-
-    //                 })
-    //             })
-
-    //             .catch(err=>{
-    //                 req.flash('error_msg', 'Error:'+ err)
-    //                 res.redirect('/forgot')
-    //             })
-    //         },
-    //         (user) => {
-    //             let smtpTransport = nodemailer.createTransport({
-    //                 service: 'Gmail',
-    //                 auth: {
-    //                     user: process.env.GMAIL_EMAIL,
-    //                     pass: process.env.GMAIL_PASSWORD
-    //                 }
-    //             })
-
-    //             let mailOptions= {
-    //                 to: user.email,
-    //                 from: 'Node Express',
-    //                 subject: 'Your password is changed',
-    //                 text: 'Hello, '+user.name+'\n\n'+
-    //                     'This is the confirmation that the password for your'+user.email+' account is changed successfully.'
-    //             }
-    //             smtpTransport.sendMail(mailOptions, err=>{
-    //                 req.flash('success_msg', 'Your password has been changed successfully.')
-    //                 res.redirect('/login')
-    //             })
-    //         }
-    // ])
-
     try {
         const user = await Admin.findOne({
             resetPasswordToken: req.params.token,
