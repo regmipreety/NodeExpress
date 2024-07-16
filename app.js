@@ -3,21 +3,21 @@ const express = require('express')
 //express app
 const app = express()
 const path = require('path')
-const dotenv = require('dotenv')
 
+const passport = require('passport')
+
+const dotenv = require('dotenv')
 dotenv.config({path: './config.env'})
 
 //connect mongoDB
 const mongoose = require('mongoose')
 const uri = process.env.DATABASE_URI
 mongoose.connect(uri)
-    .then((result)=> app.listen(3000))
+    .then((result)=> app.listen(process.env.PORT))
     .catch((err)=> console.log(err))
+
 const methodOverride = require('method-override')
-const blogRoutes = require('./routes/blogRoutes')
-const authRoutes = require('./routes/authRoutes')
-const employeeRoutes = require('./routes/employeeRoutes')
-const galleryRoutes = require('./routes/galleryRoutes')
+
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -41,12 +41,25 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+//middleware for passport
+app.use(passport.initialize())
+app.use(passport.session())
+
+//middleware for flash messages
 app.use(flash())
+
+//routes
+const blogRoutes = require('./routes/blogRoutes')
+const authRoutes = require('./routes/authRoutes')
+const employeeRoutes = require('./routes/employeeRoutes')
+const galleryRoutes = require('./routes/galleryRoutes')
 
 //Setting messages variables globally
 app.use((req,res, next)=>{
     res.locals.success_msg = req.flash(('success_msg'))
     res.locals.error_msg = req.flash(('error_msg'))
+    res.locals.error = req.flash(('error'))
+    res.locals.currentUser = req.user
     next()
 })
 

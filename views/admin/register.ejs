@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+<%- include('../partials/header.ejs') %>
+</head>
+<body>
+<%- include('../partials/nav.ejs') %>
+<h1 class="text-center mt-5 mb-3">Admin Register</h1>
+<div class="container w-25">
+  <%- include('../partials/messages.ejs') %>
+  <form action="/admin/register" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name:</label>
+      <input type="text" class="form-control" placeholder="Enter name" name="name">
+      <div class = "password-error text-danger"></div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email:</label>
+      <input type="text" class="form-control" placeholder="Enter email" name="email">
+      <div class = "email-error text-danger"></div>
+    </div>
+    <div class="mb-3">
+      <label for="pwd" class="form-label">Password:</label>
+      <input type="password" class="form-control" placeholder="Enter password" name="password">
+      <div class = "password-error text-danger"></div>
+    </div>
+    <button type="submit" class="btn btn-danger btn-block">Register</button>
+  </form>
+  <a href="/admin/login">Back to Login</a>
+</div>
+<%- include('../partials/footer.ejs') %>
+</body>
+</html>
