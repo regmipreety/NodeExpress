@@ -46,15 +46,12 @@ const getResults = async(req, res)=>{
 
         let data = await scrapeData(url , page)
 
-        console.log(data)
-
         res.render('movies/movies', {data})
 
     } catch (err) {
         req.flash("error_msg", "ERROR"+err)
         res.redirect("/dashboard")
-    }
-    
+    }   
     
 }
 
