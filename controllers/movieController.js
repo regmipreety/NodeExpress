@@ -39,7 +39,8 @@ const scrapeData = async(url, page) =>{
 
 const getResults = async(req, res)=>{
     try {
-        browser = await puppeteer.launch({ args: ['--no-sandbox',  '--disable-setuid-sandbox'], executablePath: await chromium.executablePath,
+        browser = await puppeteer.launch({ args: ['--no-sandbox',  '--disable-setuid-sandbox'], 
+            executablePath: await chromium.executablePath,
             headless: chromium.headless}) //removed headless: true for deployment
 
         const page = await browser.newPage()
