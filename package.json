@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
+    "postinstall": "npx puppeteer install",
     "heroku-postbuild": "npm rebuild bcrypt --build-from-source"
   },
   "author": "",

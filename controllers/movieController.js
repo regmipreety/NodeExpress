@@ -38,7 +38,7 @@ const scrapeData = async(url, page) =>{
 
 const getResults = async(req, res)=>{
     try {
-        browser = await puppeteer.launch({ args: ['--no-sandbox'] }) //removed headless: true for deployment
+        browser = await puppeteer.launch({ args: ['--no-sandbox',  '--disable-setuid-sandbox'] }) //removed headless: true for deployment
 
         const page = await browser.newPage()
 
