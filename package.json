@@ -4,14 +4,15 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "heroku-postbuild": "npm rebuild bcrypt --build-from-source"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "async": "^3.2.5",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
     "cheerio": "^1.0.0-rc.12",
     "connect-flash": "^0.1.1",

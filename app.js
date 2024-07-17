@@ -9,6 +9,13 @@ const passport = require('passport')
 const dotenv = require('dotenv')
 dotenv.config({path: './config.env'})
 
+const port = process.env.PORT || 3000
+
+//connect to server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+  
 //connect mongoDB
 const mongoose = require('mongoose')
 const uri = process.env.DATABASE_URI
