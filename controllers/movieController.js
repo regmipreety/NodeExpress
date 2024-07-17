@@ -48,7 +48,7 @@ const getResults = async(req, res)=>{
 
         console.log(data)
 
-        return res.render('movies/movies', {data})
+        res.render('movies/movies', {data})
 
     } catch (err) {
         req.flash("error_msg", "ERROR"+err)
