@@ -10,6 +10,7 @@ const dotenv = require('dotenv')
 dotenv.config({path: './config.env'})
 
 const port = process.env.PORT || 3000
+const uri = process.env.DATABASE_URI;
 
 //connect to server
 app.listen(port, () => {
@@ -18,10 +19,16 @@ app.listen(port, () => {
   
 //connect mongoDB
 const mongoose = require('mongoose')
-const uri = process.env.DATABASE_URI
-mongoose.connect(uri)
-    .then((result)=> app.listen(process.env.PORT))
-    .catch((err)=> console.log(err))
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Failed to connect to MongoDB', err);
+  });
 
 const methodOverride = require('method-override')
 
