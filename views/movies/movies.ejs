@@ -1,0 +1,42 @@
+<html lang="en">
+    <%- include('../partials/header.ejs') %>
+<body>
+    <%- include('../partials/nav.ejs') %>
+<h1> Search Result <span style="color: grey">> </span> </h1>
+    <%- include('../partials/messages.ejs')%>
+  <div class="card mb-5 w-75">
+    <% if(typeof data != 'undefined' && data){ %>
+        <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="<%= data.imgURL %>" class="card-img img-fluid" />
+            </div>
+      
+            <div class="col-md-8">
+              <div class="card-body">
+                <h2 class="card-title">
+                  <b><%= data.title %></b> <%= data.release %>
+                </h2>
+      
+                <hr />
+                <h4 class="mb-2">Overview:</h4>
+                <p class="card-text"><%= data.overview %></p>
+      
+                <hr />
+                <p class="card-text"><b>User Score:</b> <%= data.score %></p>
+      
+                <hr />
+                <h4 class="mb-3">Featured Crew:</h4>
+               <% data["crew"].forEach((crew)=>{ %>
+                  <p class="card-text"><b><%= crew.name%> </b> (<%= crew.role %>),</p>
+                <% }) %>
+              </div>
+            </div>
+          </div>
+   <% } else { %>
+        <p class="alert alert-danger">No movie found with this url</p>
+   <% } %>
+    
+  </div>
+  <%- include('../partials/footer.ejs') %>
+  </body>
+  </html>
