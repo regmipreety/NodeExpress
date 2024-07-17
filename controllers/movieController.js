@@ -52,7 +52,7 @@ const getResults = async(req, res)=>{
 
     } catch (err) {
         req.flash("error_msg", "ERROR"+err)
-        res.redirect("/movies/search")
+        res.redirect("/dashboard")
     }
     
     
