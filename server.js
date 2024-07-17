@@ -40,7 +40,7 @@ fs.readFile(path, (err, data)=>{
     }
 })
 })
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 server.listen(port, 'localhost', ()=>{
     console.log('listening to server')
 })
