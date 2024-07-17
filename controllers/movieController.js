@@ -1,4 +1,5 @@
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer-core')
+const chromium = require('chrome-aws-lambda');
 const cheerio = require('cheerio')
 const { timeout } = require('async')
 
@@ -38,7 +39,8 @@ const scrapeData = async(url, page) =>{
 
 const getResults = async(req, res)=>{
     try {
-        browser = await puppeteer.launch({ args: ['--no-sandbox',  '--disable-setuid-sandbox'] }) //removed headless: true for deployment
+        browser = await puppeteer.launch({ args: ['--no-sandbox',  '--disable-setuid-sandbox'], executablePath: await chromium.executablePath,
+            headless: chromium.headless}) //removed headless: true for deployment
 
         const page = await browser.newPage()
 
