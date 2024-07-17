@@ -53,6 +53,7 @@ const blogRoutes = require('./routes/blogRoutes')
 const authRoutes = require('./routes/authRoutes')
 const employeeRoutes = require('./routes/employeeRoutes')
 const galleryRoutes = require('./routes/galleryRoutes')
+const movieRoutes = require('./routes/movieRoutes')
 
 //Setting messages variables globally
 app.use((req,res, next)=>{
@@ -88,6 +89,7 @@ app.use('/blogs',blogRoutes)
 app.use('/employees', employeeRoutes)
 app.use('/gallery', galleryRoutes)
 app.use(authRoutes)
+app.use('/movies', movieRoutes)
 
 // get-set cookie
 app.get('/set-cookies', (req,res)=>{

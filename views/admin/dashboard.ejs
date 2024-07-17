@@ -6,7 +6,17 @@
 <%- include('../partials/nav.ejs') %>
 <div class="container w-25">
     <h2>Welcome <%= currentUser.name %></h2>
+    <h1 id="searchh1" class="text-center">Search Your Movie Here</h1>
 
+    <form action="/movies/results" method="GET" class="justify-content-center d-flex">
+      <input
+        type="text"
+        name="search"
+        class="form-control"
+        placeholder="https://www.themoviedb.org/movie/718821-twisters"
+      />
+      <button class="ml-3 text-center btn btn-success">Search Movie</button>
+    </form>
 </div>
 <%- include('../partials/footer.ejs') %>
 </body>
